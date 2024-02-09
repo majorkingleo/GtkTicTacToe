@@ -9,6 +9,7 @@ using BUTTON_ROW = System.Collections.Generic.List<GtkTicTacToe.XYButton>;
 using BUTTON_ROWS_AND_COLS = System.Collections.Generic.List<System.Collections.Generic.List<GtkTicTacToe.XYButton>>;
 using SCORE = System.Collections.Generic.Dictionary<uint, System.Collections.Generic.List<GtkTicTacToe.XYButton>>;
 using System.Linq;
+using static TicTacToe.TicTacToe;
 
 namespace TicTacToe
 {
@@ -34,7 +35,7 @@ namespace TicTacToe
                 reset(symbol_own);
             }
 
-            void reset(XYButton.XXOState symbol_own)
+            public void reset(XYButton.XXOState symbol_own)
             {
                 if (symbols[(uint)Symbol.OWN] != symbol_own)
                 {
@@ -201,7 +202,7 @@ namespace TicTacToe
             return best_score;
         }
 
-        void UserPlayedInterface.userPLayed()
+        void UserPlayedInterface.userPlayed()
         {
             turn++;
 
@@ -366,7 +367,7 @@ namespace TicTacToe
         {            
             foreach (XYButton button in all_buttons_linear)
             {
-                button.Active = false;
+                button.Sensitive = false;
             }		
         }
 
@@ -433,6 +434,26 @@ namespace TicTacToe
             empty_buttons.First().setState(game.symbols[(uint)Symbol.OWN]);
 
             turn++;
+        }
+
+        void newGame(XYButton.XXOState symbol_own)
+        {            
+            foreach (XYButton button in all_buttons_linear)
+            {
+                button.reset();
+                button.setComputerSymbol(symbol_own);
+            }
+
+            turn = 0;
+            game.reset(symbol_own);
+            Console.WriteLine("game.who_starts: {0} symbol_own: {1}", game.who_starts, symbol_own);
+
+            if (game.who_starts == symbol_own)
+            {
+                ((UserPlayedInterface)this).userPlayed();                
+            }
+
+            createStatusMessage();
         }
     }
 

@@ -8,6 +8,6 @@ namespace GtkTicTacToe
 {
     internal interface UserPlayedInterface
     {
-        void userPLayed();
+        void userPlayed();
     }
 }

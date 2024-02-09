@@ -52,7 +52,7 @@ namespace GtkTicTacToe
                     label_name = "O";
                     break;
             }
-
+            Sensitive = false;
             Label = label_name;
             //layout()->addWidget(new QSvgWidget(icon_name, this));
         }
@@ -68,7 +68,7 @@ namespace GtkTicTacToe
         public void reset()
         {
             setState(XXOState.BLANK);
-            Active = true;
+            Sensitive = true;
         }
 
         public void setUserSymbol(XXOState state)
@@ -100,7 +100,7 @@ namespace GtkTicTacToe
 
             setState(userSymbol);
 
-            parent.userPLayed();
+            parent.userPlayed();
         }
 
         static void _userClicked( object obj, EventArgs args )
