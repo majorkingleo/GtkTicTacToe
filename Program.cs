@@ -115,9 +115,13 @@ namespace TicTacToe
             MenuItem m_game = new MenuItem("Game");
             m_game.Submenu = menu_game;
 
-            MenuItem m_new_game = new MenuItem("new Game");
+            MenuItem m_new_game = new MenuItem("_new Game");
             m_new_game.Activated += delegate { newGame(); };
             menu_game.Append(m_new_game);
+
+            MenuItem m_quit_game = new MenuItem("_quit Game");
+            m_quit_game.Activated += delegate { Application.Quit(); };
+            menu_game.Append(m_quit_game);
 
             mb.Append(m_game);
 
