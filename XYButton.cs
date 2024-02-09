@@ -16,13 +16,19 @@ namespace GtkTicTacToe
         XXOState state = XXOState.BLANK;
         XXOState userSymbol = XXOState.X;
         UserPlayedInterface parent;
+        bool inResettingState = false;
 
         public XYButton( UserPlayedInterface parent_) : base()
         {
             Label = "";
             Expand = true;
-            Clicked += _userClicked;
+            Clicked += delegate { userClicked(); };
             parent = parent_;
+        }
+
+        void clear()
+        {
+            Label = "";
         }
 
         public void setState(XXOState state_)
@@ -41,7 +47,9 @@ namespace GtkTicTacToe
 
             switch (state)
             {
-                case XXOState.BLANK: return;
+                case XXOState.BLANK:                    
+                    return;
+
                 case XXOState.X: 
                     icon_name = "Red_X_Freehand.svg"; 
                     label_name = "X";
@@ -69,7 +77,9 @@ namespace GtkTicTacToe
         {
             setState(XXOState.BLANK);
             Sensitive = true;
+            inResettingState = true;
             Active = false;
+            inResettingState = false;
         }
 
         public void setUserSymbol(XXOState state)
@@ -86,13 +96,13 @@ namespace GtkTicTacToe
             }
         }
         
-        void clear()
-        {
-            Label = "";            
-        }
-
         void userClicked()
         {
+            if( inResettingState )
+            {
+                return;
+            }
+
             if (state != XXOState.BLANK)
             {
                 // std::cout << "State is not blank its: " << static_cast<int>(state) << std::endl;
@@ -104,9 +114,5 @@ namespace GtkTicTacToe
             parent.userPlayed();
         }
 
-        static void _userClicked( object obj, EventArgs args )
-        {
-            ((XYButton)obj).userClicked();
-        }
     }
 }
