@@ -69,6 +69,7 @@ namespace GtkTicTacToe
         {
             setState(XXOState.BLANK);
             Sensitive = true;
+            Active = false;
         }
 
         public void setUserSymbol(XXOState state)

@@ -10,6 +10,7 @@ using BUTTON_ROWS_AND_COLS = System.Collections.Generic.List<System.Collections.
 using SCORE = System.Collections.Generic.Dictionary<uint, System.Collections.Generic.List<GtkTicTacToe.XYButton>>;
 using System.Linq;
 using static TicTacToe.TicTacToe;
+using System.Security.Cryptography;
 
 namespace TicTacToe
 {
@@ -94,14 +95,40 @@ namespace TicTacToe
         public TicTacToe() 
             : base( "XXO" )              
         {
+            /*
+            MenuBar mb = new MenuBar();
+            Menu menugame = new Menu();
+
+            MenuItem m_game = new MenuItem("Game");
+            MenuItem new_game = new MenuItem("new Game");
+            new_game.Activated += delegate { newGame(); };
+
+            m_game.Submenu = new_game;
+            
+
+            menugame.Append(m_game);
+            mb.Append(menugame);
+            */
+            MenuBar mb = new MenuBar();
+
+            Menu menu_game = new Menu();
+            MenuItem m_game = new MenuItem("Game");
+            m_game.Submenu = menu_game;
+
+            MenuItem m_new_game = new MenuItem("new Game");
+            m_new_game.Activated += delegate { newGame(); };
+            menu_game.Append(m_new_game);
+
+            mb.Append(m_game);
+
             DeleteEvent += new DeleteEventHandler(OnDelete);
             /*
             Frame f = new Frame("XXO");
             f.BorderWidth = 2;
             Add(f);
             */
-            VBox f = new();
-            Add(f);
+            VBox f = new VBox(false,2);            
+            f.PackStart(mb, false, false, 0);
 
 
             grid = new Grid();
@@ -125,7 +152,8 @@ namespace TicTacToe
 
             all_button_combinations = getAllCombinationOfRows();
 
-            f.Add(grid);
+            f.PackStart(grid, true, true, 5);            
+            Add(f);
             grid.Show();
             f.Show();
 
@@ -134,10 +162,11 @@ namespace TicTacToe
             statusBar.Expand = false;
             statusBar.Vexpand = false;
             statusBar.Hexpand = true;
-            statusBar.Valign = Align.End;            
-            f.Add(statusBar);
+            statusBar.Valign = Align.End;
+            f.PackStart(statusBar, false, false, 0);
 
             createStatusMessage();
+
         }
 
         private XYButton create_button( uint x, uint y )
@@ -454,6 +483,11 @@ namespace TicTacToe
             }
 
             createStatusMessage();
+        }
+
+        void newGame()
+        {
+            newGame(game.symbols[(uint)Symbol.OWN]);
         }
     }
 
