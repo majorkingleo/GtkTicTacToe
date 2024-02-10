@@ -125,6 +125,25 @@ namespace TicTacToe
 
             mb.Append(m_game);
 
+
+            Menu menu_options = new Menu();
+            MenuItem m_options = new MenuItem("Options");
+            m_options.Submenu = menu_options;
+
+
+            RadioMenuItem[] group = null;
+
+            RadioMenuItem m_user_has_x = new RadioMenuItem(group, "I take X");
+            m_user_has_x.Activated += delegate { userTakesX(); };
+            menu_options.Append(m_user_has_x);
+            group = m_user_has_x.Group;
+
+            MenuItem m_user_has_o = new RadioMenuItem(group, "I take O");
+            m_user_has_o.Activated += delegate { userTakesO(); };
+            menu_options.Append(m_user_has_o);
+
+            mb.Append(m_options);
+
             DeleteEvent += new DeleteEventHandler(OnDelete);
             /*
             Frame f = new Frame("XXO");
@@ -171,6 +190,16 @@ namespace TicTacToe
 
             createStatusMessage();
 
+        }
+
+        void userTakesX()
+        {            
+            newGame(XYButton.XXOState.O);
+        }
+
+        void userTakesO()
+        {
+            newGame(XYButton.XXOState.X);
         }
 
         private XYButton create_button( uint x, uint y )
