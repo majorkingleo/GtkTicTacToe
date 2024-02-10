@@ -47,7 +47,8 @@ namespace GtkTicTacToe
 
             switch (state)
             {
-                case XXOState.BLANK:                    
+                case XXOState.BLANK:     
+                    Image = null;
                     return;
 
                 case XXOState.X: 
