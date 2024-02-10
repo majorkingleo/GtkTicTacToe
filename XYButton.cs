@@ -51,18 +51,21 @@ namespace GtkTicTacToe
                     return;
 
                 case XXOState.X: 
-                    icon_name = "Red_X_Freehand.svg"; 
+                    icon_name = "GtkTicTacToe.Red_X_Freehand_50x50.png"; 
                     label_name = "X";
                     break;
 
                 case XXOState.O: 
-                    icon_name = "moon-hand-drawn-circle-svgrepo-com.svg"; 
+                    icon_name = "GtkTicTacToe.moon-hand-drawn-circle-svgrepo-com_50x50.png"; 
                     label_name = "O";
                     break;
             }
             Sensitive = false;
-            Label = label_name;
-            //layout()->addWidget(new QSvgWidget(icon_name, this));
+            //Label = label_name;
+
+            Image = Gtk.Image.LoadFromResource(icon_name);
+            Image.Show();
+
         }
 
         public XXOState getState() { 

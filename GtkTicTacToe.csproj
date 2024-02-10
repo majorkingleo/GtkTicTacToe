@@ -12,4 +12,9 @@
     <PackageReference Include="GtkSharp.Dependencies" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="moon-hand-drawn-circle-svgrepo-com_50x50.png"/>
+	<EmbeddedResource Include="Red_X_Freehand_50x50.png"/>
+  </ItemGroup>
+
 </Project>

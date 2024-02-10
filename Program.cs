@@ -145,20 +145,16 @@ namespace TicTacToe
             mb.Append(m_options);
 
             DeleteEvent += new DeleteEventHandler(OnDelete);
-            /*
-            Frame f = new Frame("XXO");
-            f.BorderWidth = 2;
-            Add(f);
-            */
+
             VBox f = new VBox(false,2);            
             f.PackStart(mb, false, false, 0);
 
 
             grid = new Grid();
             grid.Expand = true;
-            //grid.Vexpand = true;
-            //grid.ColumnHomogeneous = true;
-            //grid.RowHomogeneous = true;
+
+            grid.ColumnHomogeneous = true;
+            grid.RowHomogeneous = true;
             grid.BorderWidth = 5;            
 
             for (uint row = 0; row < SIZE; row++)
@@ -254,12 +250,6 @@ namespace TicTacToe
             {
                 best_score = other_score;
             }
-
-            /*
-            std::cout << "Best Score: " << best_score.rbegin()->first
-                      << " type: " << static_cast<int>((*best_score.rbegin()->second.begin())->getState())
-                      << std::endl;
-            */
 
             return best_score;
         }
@@ -394,8 +384,6 @@ namespace TicTacToe
                 }
             }
 
-
-            //std::cout << "symbol_count:" << symbol_count << " " << buf << std::endl;
             Console.WriteLine("Symbol count: {0} {1}", symbol_count, buf);
 
             if (symbols.Count != 1)
