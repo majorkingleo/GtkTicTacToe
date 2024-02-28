@@ -342,10 +342,9 @@ namespace TicTacToe
             foreach ( BUTTON_ROW row in all_button_combinations )
             {
                 SCORE score4row = find2InLine(row, symbol);
-                //score.insert(score4row.begin(), score4row.end());
                 foreach( uint key in  score4row.Keys )
                 {
-                    score.TryAdd(key, score4row[key]);
+                  score[key] = score4row[key];
                 }
             }
 
